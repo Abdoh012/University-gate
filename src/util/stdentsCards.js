@@ -1,0 +1,32 @@
+export const studentsCards = [
+  {
+    id: 1,
+    title: "Total Entries Today",
+    number: 500,
+    percentage: "up 10%",
+    textColor: "text-normal",
+    bgColor: "bg-blue-200",
+    icon: "fa-solid fa-door-open",
+    iconColor: "text-blue-500",
+  },
+  {
+    id: 2,
+    title: "Rejected Entries Today",
+    number: 1921,
+    percentage: "down 10%",
+    textColor: "text-red-500",
+    bgColor: "bg-red-200",
+    icon: "fa-solid fa-ban",
+    iconColor: "text-red-500",
+  },
+  {
+    id: 3,
+    title: "Total Students Entered Today",
+    number: 2591,
+    percentage: "up 12%",
+    textColor: "text-green-500",
+    bgColor: "bg-green-200",
+    icon: "fa-solid fa-user-graduate",
+    iconColor: "text-green-500",
+  },
+];
