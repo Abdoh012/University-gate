@@ -16,115 +16,107 @@ import Layout from "./components/layout/Layout.jsx";
 
 // Hooks
 import { use, useContext, useState } from "react";
-import AppWrapper, { AppCtx } from "./components/contexts/AppCtx.jsx";
 import Students from "./Pages/Students.jsx";
 import Log from "./Pages/Log.jsx";
 import LoginRoute from "./components/Protection/LoginRoute.jsx";
 import ProfileHeader from "./components/ProfileHeader.jsx";
+import Wrapper from "./components/Wrapper.jsx";
 
 function App() {
   // -------------------- Component structure --------------------
   return (
-    <AppWrapper>
+    <Wrapper>
       {/* Notification */}
       <div>
         <Toaster />
       </div>
 
       {/* <section className="flex"> */}
-        {/* Pages with react router */}
-        <Routes>
-          {/* Default opening */}
+      {/* Pages with react router */}
+      <Routes>
+        {/* Default opening */}
+        <Route
+          path="/"
+          element={
+            <Navigate
+              to={localStorage.getItem("remember") ? "/dashboard" : "/login"}
+              replace
+            />
+          }
+        />
+        {/* <Route path="/" element={<Navigate to="/dashboard" replace />} /> */}
+
+        {/* Auth form */}
+        <Route
+          path="/login"
+          element={
+            <AuthWrapper>
+              <LoginRoute>
+                <Auth></Auth>
+              </LoginRoute>
+            </AuthWrapper>
+          }
+        />
+
+        {/* Dashboard */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
           <Route
-            path="/"
+            index
             element={
-              <Navigate
-                to={localStorage.getItem("remember") ? "/dashboard" : "/login"}
-                replace
-              />
+              <>
+                <Dashboard />
+              </>
             }
           />
-          {/* <Route path="/" element={<Navigate to="/dashboard" replace />} /> */}
+        </Route>
 
-          {/* Auth form */}
+        {/* Students */}
+        <Route
+          path="/students"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
           <Route
-            path="/login"
+            index
             element={
-              <AuthWrapper>
-                <LoginRoute>
-                  <Auth></Auth>
-                </LoginRoute>
-              </AuthWrapper>
+              <>
+                <Students />
+              </>
             }
           />
+        </Route>
 
-          {/* Dashboard */}
+        {/* Log */}
+        <Route
+          path="/log"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
           <Route
-            path="/dashboard"
+            index
             element={
-              <DashboardWrapper>
-                <ProtectedRoute>
-                  <Layout />
-                </ProtectedRoute>
-              </DashboardWrapper>
+              <>
+                <Log />
+              </>
             }
-          >
-            <Route
-              index
-              element={
-                <>
-                  <Dashboard />
-                </>
-              }
-            />
-          </Route>
-
-          {/* Students */}
-          <Route
-            path="/students"
-            element={
-              // <StudentsWrapper>
-              <ProtectedRoute>
-                <Layout />
-              </ProtectedRoute>
-              // </StudentsWrapper>
-            }
-          >
-            <Route
-              index
-              element={
-                <>
-                  <Students />
-                  {/* <ProfileHeader /> */}
-                </>
-              }
-            />
-          </Route>
-
-          {/* Log */}
-          <Route
-            path="/log"
-            element={
-              // <LogWrapper>
-              <ProtectedRoute>
-                <Layout />
-              </ProtectedRoute>
-              // </LogWrapper>
-            }
-          >
-            <Route
-              index
-              element={
-                <>
-                  <Log />
-                  {/* <ProfileHeader /> */}
-                </>
-              }
-            />
-          </Route>
-        </Routes>
+          />
+        </Route>
+      </Routes>
       {/* </section> */}
-    </AppWrapper>
+    </Wrapper>
   );
 }
 

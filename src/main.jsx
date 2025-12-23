@@ -6,10 +6,11 @@ import "./util/fontAwesome.js";
 import { BrowserRouter } from "react-router-dom";
 
 createRoot(document.getElementById("root")).render(
-  <BrowserRouter basename="/University-gate">
-    <App />
-    <StrictMode>
-      <App />
-    </StrictMode>
-  </BrowserRouter>
+  <>
+    <BrowserRouter basename="/University-gate">
+      <StrictMode>
+        <App />
+      </StrictMode>
+    </BrowserRouter>
+  </>
 );

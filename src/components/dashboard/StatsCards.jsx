@@ -10,7 +10,7 @@ export default function StatsCards() {
   //  End of contexts
 
   // -------------------- Variables --------------------
-  const totalEntries = gateStats ? gateStats.total_entries : "Loading";
+  const totalEntries = gateStats ? gateStats.total_entries : 0;
 
   const rejectedEntries = loggedStudents
     ? loggedStudents.filter((stu) => stu.status === "denied").length

@@ -33,7 +33,7 @@ const renderOutsideLabel = ({
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
   return (
-    <foreignObject x={x - 75} y={y - 20} width={150} height={45}>
+    <foreignObject x={x - 75} y={y} width={150} height={45}>
       <div
         style={{
           display: "flex",
