@@ -7,7 +7,7 @@ export default function Auth() {
   // -------------------- Component structure --------------------
   return (
     <div className="h-screen w-screen flex flex-col justify-center items-center">
-      <div className="container flex flex-col justify-center items-center mb-5">
+      <div className="min-h-screen flex flex-col justify-center items-center px-4 mb-5">
         {/* Header */}
         <Header />
 

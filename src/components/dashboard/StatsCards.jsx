@@ -1,7 +1,17 @@
-import { studentsCards } from "@/util/stdentsCards";
+// JS data
+import { studentsCards } from "@/util/studentsCards";
+
+// Comps
 import Card from "./Card";
+
+// Font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// Hooks
 import { use } from "react";
+
+// Ctx
+import { AppCtx } from "../contexts/AppCtx";
 import { DashboardCtx } from "../contexts/DashboardCtx";
 
 export default function StatsCards() {
@@ -10,24 +20,24 @@ export default function StatsCards() {
   //  End of contexts
 
   // -------------------- Variables --------------------
-  const totalEntries = gateStats ? gateStats.total_entries : 0;
+  const totalEntries = gateStats ? gateStats.total_entries : 0; // Total entries
 
-  const rejectedEntries = loggedStudents
-    ? loggedStudents.filter((stu) => stu.status === "denied").length
-    : "Loading";
+  const rejectedEntries =
+    loggedStudents &&
+    loggedStudents.filter((stu) => stu.status === "denied").length; // Total rejected entries
 
-  const enteredStudents = loggedStudents
-    ? loggedStudents.filter((stu) => stu.status === "allowed").length
-    : "Loading";
-
+  const enteredStudents =
+    loggedStudents &&
+    loggedStudents.filter((stu) => stu.status === "allowed").length; // Total entered students
   // End of variables
 
   // -------------------- Component structure --------------------
   return (
-    <div className="flex justify-between items-center">
+    // -------------------- Component structure --------------------
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {studentsCards.map((card) => (
         <Card key={card.id}>
-          <div className="flex justify-between items-center gap-40 p-5">
+          <div className="flex justify-between items-center">
             {/* Card details */}
             <div>
               {/* Card title */}
@@ -41,13 +51,6 @@ export default function StatsCards() {
                   ? rejectedEntries
                   : enteredStudents}
               </p>
-              {/* <p
-              className={`${
-                card.percentage[0] === "u" ? "text-red-500" : "text-green-500"
-              }`}
-            >
-              {card.percentage}
-            </p> */}
             </div>
 
             {/* Icon */}

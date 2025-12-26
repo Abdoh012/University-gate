@@ -7,7 +7,7 @@ import Card from "./Card";
 // Hooks
 import { use } from "react";
 import { DashboardCtx } from "../contexts/DashboardCtx";
-import { StudentsTable } from "./StudentsTable";
+import { LatestLogStudentsTable } from "./LatestLogStudentsTable";
 
 export default function LatestStudents() {
   // -------------------- Contexts --------------------
@@ -16,11 +16,12 @@ export default function LatestStudents() {
 
   // -------------------- Component Structure --------------------
   return (
-    <Card padding="p-0">
+    <Card>
       {/* Header */}
-      <div className="w-full font-semibold flex justify-between items-center mb-5 p-5">
+      <div className="w-full font-semibold flex justify-between items-center mb-5 ">
         <p>Recent Access Logs</p>
         <div>
+          {/* Navigate to logs page button */}
           <button
             onClick={handleShowAllLogs}
             className="text-[var(--mainColor)] flex gap-1 items-center cursor-pointer"
@@ -33,7 +34,7 @@ export default function LatestStudents() {
 
       {/* Students */}
       <div>
-        <StudentsTable />
+        <LatestLogStudentsTable />
       </div>
     </Card>
   );

@@ -1,11 +1,12 @@
 // Components
-import AuthWrapper from "./components/contexts/AuthCtx.jsx";
-import DashboardWrapper from "./components/contexts/DashboardCtx.jsx";
 import { ProtectedRoute } from "./components/Protection/ProtectedRoute.jsx";
+import LoginRoute from "./components/Protection/LoginRoute.jsx";
 
 // Pages
-import Dashboard from "./Pages/Dashboard.jsx";
+import Dashboard from "./Pages/Dashboard";
 import Auth from "./Pages/Auth";
+import Students from "./Pages/Students.jsx";
+import Log from "./Pages/Log.jsx";
 
 // React router
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -14,47 +15,33 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "sonner";
 import Layout from "./components/layout/Layout.jsx";
 
-// Hooks
-import { use, useContext, useState } from "react";
-import Students from "./Pages/Students.jsx";
-import Log from "./Pages/Log.jsx";
-import LoginRoute from "./components/Protection/LoginRoute.jsx";
-import ProfileHeader from "./components/ProfileHeader.jsx";
-import Wrapper from "./components/Wrapper.jsx";
+// Wrappers
+import StudentsManagementWrapper from "./components/contexts/StudentsManagementCtx.jsx";
+import AuthWrapper from "./components/contexts/AuthCtx.jsx";
+import DashboardWrapper from "./components/contexts/DashboardCtx.jsx";
 
 function App() {
   // -------------------- Component structure --------------------
   return (
-    <Wrapper>
+    <>
       {/* Notification */}
       <div>
         <Toaster />
       </div>
 
-      {/* <section className="flex"> */}
       {/* Pages with react router */}
       <Routes>
-        {/* Default opening */}
-        <Route
-          path="/"
-          element={
-            <Navigate
-              to={localStorage.getItem("remember") ? "/dashboard" : "/login"}
-              replace
-            />
-          }
-        />
-        {/* <Route path="/" element={<Navigate to="/dashboard" replace />} /> */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
 
         {/* Auth form */}
         <Route
           path="/login"
           element={
-            <AuthWrapper>
-              <LoginRoute>
+            <LoginRoute>
+              <AuthWrapper>
                 <Auth></Auth>
-              </LoginRoute>
-            </AuthWrapper>
+              </AuthWrapper>
+            </LoginRoute>
           }
         />
 
@@ -63,7 +50,9 @@ function App() {
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <Layout />
+              <DashboardWrapper>
+                <Layout />
+              </DashboardWrapper>
             </ProtectedRoute>
           }
         >
@@ -78,11 +67,14 @@ function App() {
         </Route>
 
         {/* Students */}
+
         <Route
           path="/students"
           element={
             <ProtectedRoute>
-              <Layout />
+              <StudentsManagementWrapper>
+                <Layout />
+              </StudentsManagementWrapper>
             </ProtectedRoute>
           }
         >
@@ -115,8 +107,7 @@ function App() {
           />
         </Route>
       </Routes>
-      {/* </section> */}
-    </Wrapper>
+    </>
   );
 }
 

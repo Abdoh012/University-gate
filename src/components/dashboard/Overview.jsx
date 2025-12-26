@@ -1,4 +1,4 @@
-import CardStyle from "./CardStyle";
+// Comps
 import ChartPieSimple from "./ChartPieSimple";
 
 export default function Overview() {

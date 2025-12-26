@@ -1,6 +1,13 @@
+// Hooks
 import { use, useState } from "react";
+
+// Ctx
 import { AuthCtx } from "../contexts/AuthCtx";
+
+// JS data
 import { inputsData } from "@/util/Inputs";
+
+// Comp
 import InputField from "./InputField";
 
 export default function LogIn() {

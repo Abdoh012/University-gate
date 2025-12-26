@@ -1,32 +1,20 @@
 // Hooks
-import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext } from "react";
 
 // Create context component
-export const AppCtx = createContext({
-  userData: null,
-  SetUserData: null,
-});
+export const AppCtx = createContext({});
 
 export default function AppWrapper({ children }) {
   // -------------------- States --------------------
 
-  // If localStorage has user value send it to user state
-  const [user, setUser] = useState(
-    localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"))
-  );  
   // End of states
 
-  // -------------------- Functions --------------------
+  // -------------------- Queries --------------------
 
-  function setUserData(user) {    
-    localStorage.setItem("user", JSON.stringify(user));
-    setUser(user);
-  }
   // End of Functions
 
   // -------------------- Context values --------------------
-  const ctxValues = { setUserData: setUserData, userData: user };
+  const ctxValues = {};
 
   // -------------------- Component Structure --------------------
   return <AppCtx value={ctxValues}>{children}</AppCtx>;

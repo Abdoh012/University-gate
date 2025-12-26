@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <div>
       {/* Footer text */}
-      <div className="flex gap-2 p-5 w-108 rounded-sm text-sm bg-blue-100 text-[var(--mainColor)] mb-[var(--mainMargin)]">
+      <div className="flex gap-2 p-5 w-full max-w-md rounded-sm text-sm bg-blue-100 text-[var(--mainColor)] mb-[var(--mainMargin)]">
         <div>
           <FontAwesomeIcon
             className="text-[var(--mainColor)]"

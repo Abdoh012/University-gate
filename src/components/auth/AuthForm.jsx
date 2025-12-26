@@ -19,10 +19,11 @@ export default function AuthForm() {
 
   // -------------------- Component structure --------------------
   return (
-    <div className="w-108 auth shadow-[0_0_8px_#0000003b] p-8 bg-white rounded-sm mb-[var(--mainMargin)]">
-
+    <div className="w-full max-w-md p-4 sm:p-8 shadow-[0_0_8px_#0000003b] bg-white rounded-sm mb-[var(--mainMargin)]">
       {/* Title */}
-      <div className="text-center mb-[var(--mainMargin)] font-bold text-[25px]">Sign in to your account</div>
+      <div className="text-center mb-[var(--mainMargin)] font-bold text-[25px]">
+        Sign in to your account
+      </div>
 
       {/* Form */}
       <form action="" noValidate>
@@ -46,14 +47,6 @@ export default function AuthForm() {
             <Label className="cursor-pointer" htmlFor="terms">
               Remember me
             </Label>
-          </div>
-
-          {/* Forget password */}
-          <div className="text-[var(--mainColor)]">
-            <button type="button" className="cursor-pointer">
-              Forget password
-            </button>
-            ?
           </div>
         </div>
 

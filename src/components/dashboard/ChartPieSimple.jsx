@@ -1,10 +1,8 @@
-import { TrendingUp } from "lucide-react";
+// Shadcn pie chart
 import { Pie, PieChart } from "recharts";
-
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -14,67 +12,30 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+
+// Hooks
 import { use } from "react";
+
+// Ctx
+import { AppCtx } from "../contexts/AppCtx";
 import { DashboardCtx } from "../contexts/DashboardCtx";
-
-// Outside label
-const renderOutsideLabel = ({
-  cx,
-  cy,
-  midAngle,
-  outerRadius,
-  percent,
-  name,
-}) => {
-  const RADIAN = Math.PI / 180;
-  const isTop = midAngle > 60 && midAngle < 120;
-  const radius = outerRadius + (isTop ? 25 : 55);
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-  return (
-    <foreignObject x={x - 75} y={y} width={150} height={45}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          fontSize: "10px",
-          color: "var(--muted-foreground)",
-        }}
-      >
-        <div
-          style={{
-            fontSize: "12px",
-            textAlign: "center",
-          }}
-        >
-          {name}
-        </div>
-        <div style={{ fontWeight: 600 }}>{(percent * 100).toFixed(0)}%</div>
-      </div>
-    </foreignObject>
-  );
-};
 
 export default function ChartPieSimple() {
   // -------------------- Contexts --------------------
   const { gateStats, loggedStudents } = use(DashboardCtx);
+  console.log(loggedStudents);
   console.log(gateStats);
-
   //  End of contexts
 
   // -------------------- Variables --------------------
-  const totalEntries = gateStats && gateStats.total_entries;
+  const totalEntries = gateStats && gateStats.total_entries; // Total gate entries
 
   const rejectedEntries =
     loggedStudents &&
-    loggedStudents.filter((stu) => stu.status === "denied").length;
+    loggedStudents.filter((stu) => stu.status === "denied").length; // Total rejected gate entries
 
-  const uniqueStudents = gateStats && gateStats.unique_students_today;
-  // End of variables
+  const uniqueStudents = gateStats && gateStats.unique_students_today; // Total Unique students
 
-  // -------------------- Chart data --------------------
   const chartData = [
     {
       entry: "Unique Students",
@@ -91,10 +52,8 @@ export default function ChartPieSimple() {
       students: rejectedEntries,
       fill: "var(--chart-1)",
     },
-  ];
-  // End of chart data
+  ]; // Chart data
 
-  // -------------------- Chart config --------------------
   const chartConfig = {
     "Unique Students": {
       label: "Unique",
@@ -108,8 +67,8 @@ export default function ChartPieSimple() {
       label: <p className="me-1">Rejected</p>,
       color: "var(--chart-3)",
     },
-  };
-  // End of chart config
+  }; // Chart config
+  // End of variables
 
   // -------------------- Component Structure --------------------
   return (
@@ -126,22 +85,23 @@ export default function ChartPieSimple() {
         </div>
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px] w-full [&_svg]:overflow-visible"
+          className="mx-auto aspect-square max-h-[220px] sm:max-h-[250px] [&_svg]:overflow-visible [&_.recharts-pie-label-text]:hidden sm:[&_.recharts-pie-label-text]:block"
         >
-          <PieChart margin={{ top: 60, right: 140, bottom: 60, left: 140 }}>
+          {/* Pie Chart */}
+          <PieChart>
             <ChartTooltip
-              cursor={false}
               content={<ChartTooltipContent hideLabel />}
+              cursor={false}
             />
             <Pie
               className="w-full"
-              cx="50%"
-              cy="50%"
-              outerRadius={65}
+              outerRadius={70}
               data={chartData}
               dataKey="students"
               nameKey="entry"
-              label={renderOutsideLabel}
+              label={({ name, percent }) =>
+                percent ? `${name}: ${(percent * 100).toFixed(0)}%` : ""
+              }
               labelLine={false}
             />
           </PieChart>
@@ -150,7 +110,7 @@ export default function ChartPieSimple() {
 
       {/* Footer */}
       <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex justify-evenly items-center gap-4 w-full text-sm">
+        <div className="flex flex-wrap justify-center sm:justify-evenly gap-4 w-full text-sm">
           {chartData.map((item) => (
             <div key={item.entry} className="flex items-center gap-2">
               <span

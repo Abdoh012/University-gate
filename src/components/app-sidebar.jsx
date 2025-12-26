@@ -19,9 +19,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AppCtx } from "./contexts/AppCtx";
 import { items } from "@/util/sidebarItems";
-import { use, useContext } from "react";
+import { use } from "react";
+import { AuthCtx } from "./contexts/AuthCtx";
 
 export function AppSidebar() {
   // -------------------- States --------------------
@@ -31,8 +31,7 @@ export function AppSidebar() {
   // End of states
 
   // -------------------- Contexts --------------------
-  const { userData } = useContext(AppCtx);
-  console.log(userData);
+  const { userData } = use(AuthCtx);
 
   // End of contexts
 
@@ -43,9 +42,9 @@ export function AppSidebar() {
 
   // Handle logout
   function handleLogout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("remember");
-    localStorage.removeItem("user");
+    localStorage.removeItem("token"); // Remove token from localStorage
+    localStorage.removeItem("remember"); // Remove remember from localStorage
+    localStorage.removeItem("user"); // Remove user from localStorage
     navigate("/login", { replace: true });
   }
   // End of functions
@@ -58,9 +57,13 @@ export function AppSidebar() {
           {/* Sidebar header */}
           <SidebarMenu className="mb-[var(--mainMargin)] border-b border-b-neutral-300">
             {/* Icon */}
-            <div className="flex gap-2 p-5 ">
+            <div className="flex items-center gap-2 p-3 sm:p-5">
               <span>
-                <img src="favicon.svg" alt="" />
+                <img
+                  src="favicon.svg"
+                  alt=""
+                  className="font-semibold truncate sm:block hidden"
+                />
               </span>
 
               {/* Title */}
@@ -76,7 +79,7 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild className="mb-5">
                     <Link
                       to={item.url}
-                      className={`transition-all duration-300! p-5 cursor-pointer ${
+                      className={`transition-all duration-300! p-2 sm:p-5 cursor-pointer ${
                         locationText === item.condition &&
                         "bg-[var(--mainColor)] text-white  hover:bg-[#2563ebd9]! hover:text-white!"
                       }`}
@@ -93,7 +96,7 @@ export function AppSidebar() {
       </SidebarContent>
 
       {/* Sidebar footer */}
-      <SidebarFooter>
+      <SidebarFooter className="group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-2">
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
@@ -115,7 +118,7 @@ export function AppSidebar() {
                       <span className="font-medium">
                         {userData ? userData.data.user.name : "Loading..."}
                       </span>
-                      <span className="text-xs text-muted-foreground">
+                      <span className="text-xs text-muted-foreground hidden sm:block">
                         {userData ? userData.data.user.email : "Loading..."}
                       </span>
                     </div>
@@ -131,9 +134,9 @@ export function AppSidebar() {
 
               {/* Dropdown */}
               <DropdownMenuContent
-                side="right"
-                align="start"
-                className="w-64 mb-5 duration-400"
+                align="end"
+                sideOffset={8}
+                className=" w-[90vw] sm:w-64 max-w-sm rounded-md shadow-md"
               >
                 {/* Account */}
                 <div className="border-b">
